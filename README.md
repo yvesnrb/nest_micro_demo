@@ -1,7 +1,7 @@
 # Nest Micro Demo
 
 Este repositório implementa um demo da arquitetura de microserviços utilizando
-NestJS e RabbitMQ. Ele consiste de:
+NestJS e Kafka. Ele consiste de:
 
   - Um microserviço chamado http-gateway
     responsável por receber requisições HTTP e rotea-las para o microserviço
@@ -15,7 +15,7 @@ Verifique que seu ambiente possuí:
 
   - NodeJS v14.x.x
   - Yarn
-  - RabbitMQ rodando na url `http://localhost:5672` com as credenciais padrão.
+  - Kafka na url `localhost:29092` (utilize o arquivo docker-compose).
 
 Em seguida execute na raíz do repositório o comando:
 

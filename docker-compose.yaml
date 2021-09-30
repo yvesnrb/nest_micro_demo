@@ -1,0 +1,40 @@
+version: "3.7"
+
+services:
+  zookeeper:
+    hostname: zookeeper
+    container_name: zookeeper
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    hostname: kafka
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    restart: always
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: OUTSIDE://localhost:29092,INSIDE://kafka:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: OUTSIDE:PLAINTEXT,INSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  kafdrop:
+    hostname: kafdrop
+    container_name: kafdrop
+    image: obsidiandynamics/kafdrop:latest
+    depends_on:
+      - kafka
+    ports:
+      - "9000:9000"
+    restart: always
+    environment:
+      KAFKA_BROKERCONNECT: kafka:9092

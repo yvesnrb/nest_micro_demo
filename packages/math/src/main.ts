@@ -1,17 +1,19 @@
 import { NestFactory } from '@nestjs/core';
 import { Logger } from '@nestjs/common';
 import { Transport } from '@nestjs/microservices';
+import axios from 'axios';
 
 import { AppModule } from './app.module';
 
 const logger = new Logger('Main');
+
 const microserviceOptions = {
-  transport: Transport.RMQ,
+  transport: Transport.KAFKA,
   options: {
-    urls: ['amqp://localhost:5672'],
-    queue: 'math_queue',
-    queueOptions: {
-      durable: false,
+    client: {
+      clientId: 'micro-demo',
+      brokers: ['localhost:29092'],
+      connectionTimeout: 10000,
     },
   },
 };
