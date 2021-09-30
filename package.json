@@ -1,0 +1,12 @@
+{
+  "name": "nest-micro-demo",
+  "version": "1.0.0",
+  "description": "Demo of NestJS using microservices.",
+  "private": true,
+  "scripts": {},
+  "workspaces": [
+    "packages/*"
+  ],
+  "author": "Yves Bode",
+  "license": "UNLICENSED"
+}
